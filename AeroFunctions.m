@@ -1,3 +1,4 @@
+%Defines lift and drag functions needed for calculations
 classdef AeroFunctions
     methods (Static)
         function L = lift(p, v, S, Cl)
