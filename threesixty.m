@@ -67,14 +67,13 @@ function [sol, score, exitflag] = runopt(W0, v0)
     problem = optimproblem("ObjectiveSense", "Minimize")
 
     %objective to minimize time to complete the loop
-    %fcn2optimexpr convert the function to an optimization expression
+    %fcn2optimexprs convert the function to an optimization expression
     problem.Objective = fcn2optimexpr(@objectivefinal, velocity360, radius, s, acc1, acc2);
     
     %Constraints
     aerofuns = AeroFunctions;
     problem.Constraints.constraint1 = aerofuns.lift(p, velocity360, b, Cl_max) >= W0 %sufficient lift 
     % (greater than weight of the aircraft)
-    %idk if i should put T_max instead of max drag
     problem.Constraints.contraint2 = aerofuns.drag(p, velocity360, b, Cd0) <= T_max %drag has to be less than thrust
     problem.Constraints.constraint3 = velocity360^2 / radius <= 7 * g % Max 7g load factor
 
